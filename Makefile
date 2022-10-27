@@ -7,11 +7,13 @@ clean:
 	mkdir build
 
 build: clean
-	cmake -S . -B ./build -GNinja
+	cmake -S . -B ./build
 	cmake --build ./build
 
-copy: build
-	cp ./build/compile_commands.json .
+run: build
+	./build/app/Debug/$(exe_name).exe
 
-run: copy
-	./build/app/$(exe_name).exe
+generate: clean
+	cmake -S . -B ./build -GNinja
+	cmake --build ./build
+	mv ./build/compile_commands.json .
